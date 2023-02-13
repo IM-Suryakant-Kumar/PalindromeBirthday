@@ -4,6 +4,8 @@ A app made with **vanilaJs**. It tells if the user's birthday is palindrome or n
 
 ## Preaview
 
+  ![PalindromeBirthday](https://user-images.githubusercontent.com/66691162/218477669-9b6ab912-48fd-4378-9987-d2102018fa3e.png)
+
 ## Teck Stack
 
 - HTML
