@@ -17,7 +17,7 @@ function reverseStr(str) {
   return charArr.join("");
 }
 
-function checkPalindrome(str) {
+function isPalindrome(str) {
   if (reverseStr(str) === str) return true;
   return false;
 }
@@ -39,10 +39,22 @@ function dateNumToStr(date) {
 
   dateStr.year = date.year.toString();
 
-  console.log(dateStr);
+  //   console.log(dateStr);
   return dateStr;
 }
 
-const date = { day: "5", month: "4", year: "2002" };
+function getDateInAllFormats(date) {
+  const DDMMYYYY = date.day + date.month + date.year;
+  const MMDDYYYY = date.month + date.day + date.year;
+  const YYYYMMDD = date.year + date.month + date.day;
+  const DDMMYY = date.day + date.month + date.year.slice(-2);
+  const MMDDYY = date.month + date.day + date.year.slice(-2);
+  const YYMMDD = date.year.slice(-2) + date.month + date.day;
 
-dateNumToStr(date);
+  console.log([DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD]);
+  return [DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD];
+}
+
+const date = { day: "30", month: "4", year: "2002" };
+
+getDateInAllFormats(date);
