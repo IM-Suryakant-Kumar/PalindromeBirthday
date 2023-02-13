@@ -23,7 +23,7 @@ function isPalindrome(str) {
 }
 
 function dateNumToStr(date) {
-  dateStr = { day: "", month: "", year: "" };
+  const dateStr = { day: "", month: "", year: "" };
 
   if (date.day < 10) {
     dateStr.day = "0" + date.day;
@@ -51,10 +51,32 @@ function getDateInAllFormats(date) {
   const MMDDYY = date.month + date.day + date.year.slice(-2);
   const YYMMDD = date.year.slice(-2) + date.month + date.day;
 
-  console.log([DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD]);
+//   console.log([DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD]);
   return [DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD];
 }
 
-const date = { day: "30", month: "4", year: "2002" };
+function checkPalindromeForAllDateFormats(date) {
+  const dateFormatList = getDateInAllFormats(date);
+  const palindromeList = [];
 
-getDateInAllFormats(date);
+  for (let i = 0; i < dateFormatList.length; i++) {
+    let result = isPalindrome(dateFormatList[i]);
+    if (result) {
+      palindromeList.push(result);
+    } else {
+      palindromeList.push(result);
+    }
+  }
+
+  return palindromeList;
+}
+
+const date = {
+  day: 11,
+  month: 2,
+  year: 2020,
+};
+
+const dateStr = dateNumToStr(date);
+
+console.log(checkPalindromeForAllDateFormats(dateStr));
