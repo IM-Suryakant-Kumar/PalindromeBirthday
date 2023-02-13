@@ -11,7 +11,52 @@
 
 body {
     text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.container {
+    margin: 3rem;
+}
+
+h1 {
+    font-size: xx-large;
+    margin: 2rem;
+}
+
+label {
+    display: block;
+    font-size: large;
+    font-weight: 600;
+}
+
+input {
+    font-size: 14px;
+    padding: 0.6rem 1rem;
+    outline: #fff;
+    border: 2px solid var(--secondary-color);
+    margin: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 258px;
+}
+
+button {
+    display: block;
+    margin: 1rem auto;
+    font-size: x-large;
+    border: 2px solid var(--secondary-color);
+    padding: 0.3rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.output {
+    font-size: x-large;
+    margin: 2rem 0rem;
+}
+
 
 /* Footer Section */
 
