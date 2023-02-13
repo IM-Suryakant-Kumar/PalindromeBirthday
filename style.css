@@ -9,6 +9,10 @@
     --secondary-color: brown;
 }
 
+body {
+    text-align: center;
+}
+
 /* Footer Section */
 
 .footer {
