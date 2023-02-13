@@ -51,7 +51,7 @@ function getDateInAllFormats(date) {
   const MMDDYY = date.month + date.day + date.year.slice(-2);
   const YYMMDD = date.year.slice(-2) + date.month + date.day;
 
-//   console.log([DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD]);
+  //   console.log([DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD]);
   return [DDMMYYYY, MMDDYYYY, YYYYMMDD, DDMMYY, MMDDYY, YYMMDD];
 }
 
@@ -71,12 +71,70 @@ function checkPalindromeForAllDateFormats(date) {
   return palindromeList;
 }
 
-const date = {
-  day: 11,
-  month: 2,
+function isLeapYear(year) {
+  if (year % 400 == 0 || (year % 4 && year % 100 != 0)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getNextDate(date) {
+  let day = date.day + 1;
+  let month = date.month;
+  let year = date.year;
+
+  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (month === 2) {
+    if (isLeapYear(year) && day > 29) {
+      day = 1;
+      month = 3;
+    } else if (day > 28) {
+      day = 1;
+      month = 3;
+    }
+  } else {
+    if (day > daysInMonth[month - 1]) {
+      day = 1;
+      month++;
+    }
+  }
+
+  if (month > 12) {
+    month = 1;
+    year++;
+  }
+
+  return {
+    day: day,
+    month: month,
+    year: year,
+  };
+}
+
+function getNextPalindromeDate(date) {
+  let nextDate = getNextDate(date);
+  let ctr = 0;
+
+  while (true) {
+    ctr++;
+    const dateStr = dateNumToStr(nextDate);
+    const resultList = checkPalindromeForAllDateFormats(dateStr);
+
+    for (let i = 0; i < resultList.length; i++) {
+      if (resultList[i]) {
+        return [ctr, nextDate];
+      }
+    }
+    nextDate = getNextDate(nextDate);
+  }
+}
+
+var date = {
+  day: 5,
+  month: 1,
   year: 2020,
 };
 
-const dateStr = dateNumToStr(date);
-
-console.log(checkPalindromeForAllDateFormats(dateStr));
+console.log(getNextPalindromeDate(date));
