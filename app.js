@@ -136,50 +136,38 @@ function getPreviousDate(date) {
   let month = date.month;
   let year = date.year;
 
+  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
   if (day === 0) {
     month--;
 
-    const monthsWith31Days = [1, 3, 5, 7, 8, 10, 12];
-
-    let isMonthOf31days = false;
-
-    for (let i = 0; i < monthsWith31Days.length; i++) {
-      if (month === monthsWith31Days[i]) {
-        isMonthOf31days = true;
-        break;
-      }
-    }
-
-    if (isMonthOf31days) {
+    if (month === 0) {
+      month = 12;
       day = 31;
-    } else {
-      if (month === 2) {
-        if (isLeapYear(year)) {
-          day = 29;
-        } else {
-          day = 28;
-        }
+      year--;
+    } else if (month === 2) {
+      if (isLeapYear(year)) {
+        day = 29;
       } else {
-        day = 30;
+        day = 28;
       }
+    } else {
+      day = daysInMonth[month - 1];
     }
   }
 
-  if (month === 0) {
-    year--;
-    month = 12;
-    day = 31;
-  }
-
-  const newDate = { day: day, month: month, year: year };
-  return newDate;
+  return {
+    day: day,
+    month: month,
+    year: year,
+  };
 }
 
 function getPreviousPalindromeDate(date) {
   let previousDate = getPreviousDate(date);
   let ctr = 0;
 
-  while (1) {
+  while (true) {
     ctr++;
     const dateStr = dateNumToStr(previousDate);
     const resultList = checkPalindromeForAllDateFormats(dateStr);
@@ -194,7 +182,40 @@ function getPreviousPalindromeDate(date) {
 }
 
 showBtn.addEventListener("click", () => {
-  if(dob.value != '') {
-    console.log(dob.value);
+  if (dob.value != "") {
+    const dateAsArr = dob.value.split("-");
+    const yyyy = dateAsArr[0];
+    const mm = dateAsArr[1];
+    const dd = dateAsArr[2];
+
+    const date = {
+      day: Number(dd),
+      month: Number(mm),
+      year: Number(yyyy),
+    };
+
+    const dateStr = dateNumToStr(date);
+    const list = checkPalindromeForAllDateFormats(dateStr);
+    let isPalindrome = false;
+
+    for (let i = 0; i < list.length; i++) {
+      if (list[i]) {
+        isPalindrome = true;
+        break;
+      }
+    }
+
+    if (!isPalindrome) {
+      const [ctr1, nextDate] = getNextPalindromeDate(date);
+      const [ctr2, prevDate] = getPreviousPalindromeDate(date);
+
+      if (ctr1 > ctr2) {
+        output.innerText = `The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${ctr2} days.`;
+      } else {
+        output.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`;
+      }
+    } else {
+      output.innerText = "Yay! Your birthday is palindrome!";
+    }
   }
 });
