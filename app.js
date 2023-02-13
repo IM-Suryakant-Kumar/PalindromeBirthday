@@ -13,8 +13,13 @@ function reverseStr(str) {
     s++;
     e--;
   }
-//   console.log(charArr.join(""));
+  //   console.log(charArr.join(""));
   return charArr.join("");
 }
 
-reverseStr("Hello");
+function checkPalindrome(str) {
+  if (reverseStr(str) === str) return true;
+  return false;
+}
+
+console.log(checkPalindrome("racecar"));
