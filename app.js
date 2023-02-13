@@ -1,6 +1,6 @@
-// const date = document.querySelector("#dob");
-// const showBtn = document.querySelector("#show-btn");
-// const output = document.querySelector(".output");
+const dob = document.querySelector("#dob");
+const showBtn = document.querySelector("#show-btn");
+const output = document.querySelector(".output");
 
 function reverseStr(str) {
   let charArr = str.split("");
@@ -131,10 +131,70 @@ function getNextPalindromeDate(date) {
   }
 }
 
-var date = {
-  day: 5,
-  month: 1,
-  year: 2020,
-};
+function getPreviousDate(date) {
+  let day = date.day - 1;
+  let month = date.month;
+  let year = date.year;
 
-console.log(getNextPalindromeDate(date));
+  if (day === 0) {
+    month--;
+
+    const monthsWith31Days = [1, 3, 5, 7, 8, 10, 12];
+
+    let isMonthOf31days = false;
+
+    for (let i = 0; i < monthsWith31Days.length; i++) {
+      if (month === monthsWith31Days[i]) {
+        isMonthOf31days = true;
+        break;
+      }
+    }
+
+    if (isMonthOf31days) {
+      day = 31;
+    } else {
+      if (month === 2) {
+        if (isLeapYear(year)) {
+          day = 29;
+        } else {
+          day = 28;
+        }
+      } else {
+        day = 30;
+      }
+    }
+  }
+
+  if (month === 0) {
+    year--;
+    month = 12;
+    day = 31;
+  }
+
+  const newDate = { day: day, month: month, year: year };
+  return newDate;
+}
+
+function getPreviousPalindromeDate(date) {
+  let previousDate = getPreviousDate(date);
+  let ctr = 0;
+
+  while (1) {
+    ctr++;
+    const dateStr = dateNumToStr(previousDate);
+    const resultList = checkPalindromeForAllDateFormats(dateStr);
+
+    for (let i = 0; i < resultList.length; i++) {
+      if (resultList[i]) {
+        return [ctr, previousDate];
+      }
+    }
+    previousDate = getPreviousDate(previousDate);
+  }
+}
+
+showBtn.addEventListener("click", () => {
+  if(dob.value != '') {
+    console.log(dob.value);
+  }
+});
